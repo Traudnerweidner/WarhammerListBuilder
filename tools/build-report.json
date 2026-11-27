@@ -1,0 +1,223 @@
+{
+  "dataset": {
+    "name": "@alpaca-software/40kdc-data",
+    "version": "1.5.3",
+    "homepage": "https://40kdc.alpacasoft.dev",
+    "edition": "11th",
+    "dataslate": "2026-10-14",
+    "effectiveDate": "2026-10-14",
+    "label": "Munitorum Field Manual data_version 995 (Codex: Adeptus Custodes; errata to 14 October 2026)"
+  },
+  "summary": [
+    "adepta-sororitas: 33 units, 8 detachments",
+    "adeptus-astartes: 69 units, 16 detachments",
+    "adeptus-custodes: 24 units, 13 detachments",
+    "adeptus-mechanicus: 34 units, 10 detachments",
+    "aeldari: 57 units, 15 detachments",
+    "agents-of-the-imperium: 29 units, 5 detachments",
+    "astra-militarum: 72 units, 11 detachments",
+    "black-templars: 75 units, 19 detachments",
+    "blood-angels: 83 units, 19 detachments",
+    "chaos-daemons: 53 units, 9 detachments",
+    "chaos-knights: 20 units, 8 detachments",
+    "chaos-space-marines: 54 units, 17 detachments",
+    "dark-angels: 85 units, 19 detachments",
+    "death-guard: 30 units, 9 detachments",
+    "deathwatch: 76 units, 16 detachments",
+    "drukhari: 23 units, 9 detachments",
+    "emperors-children: 18 units, 10 detachments",
+    "genestealer-cults: 24 units, 9 detachments",
+    "grey-knights: 26 units, 9 detachments",
+    "imperial-fists: 71 units, 17 detachments",
+    "imperial-knights: 23 units, 8 detachments",
+    "iron-hands: 71 units, 17 detachments",
+    "leagues-of-votann: 22 units, 10 detachments",
+    "necrons: 52 units, 12 detachments",
+    "orks: 55 units, 15 detachments",
+    "raven-guard: 71 units, 17 detachments",
+    "salamanders: 71 units, 17 detachments",
+    "space-wolves: 88 units, 19 detachments",
+    "tau-empire: 43 units, 7 detachments",
+    "thousand-sons: 28 units, 9 detachments",
+    "tyranids: 52 units, 10 detachments",
+    "ultramarines: 77 units, 17 detachments",
+    "white-scars: 71 units, 17 detachments",
+    "world-eaters: 25 units, 8 detachments"
+  ],
+  "excluded": [
+    "Adeptus Titanicus (adeptus-titanicus): 4 units, 0 detachments",
+    "Titanicus Traitoris (titanicus-traitoris): 4 units, 0 detachments"
+  ],
+  "reports": {
+    "adepta-sororitas": {
+      "notes": [],
+      "skipped": [],
+      "missingTexts": []
+    },
+    "adeptus-astartes": {
+      "notes": [],
+      "skipped": [],
+      "missingTexts": []
+    },
+    "adeptus-custodes": {
+      "notes": [],
+      "skipped": [],
+      "missingTexts": []
+    },
+    "adeptus-mechanicus": {
+      "notes": [],
+      "skipped": [],
+      "missingTexts": []
+    },
+    "aeldari": {
+      "notes": [],
+      "skipped": [],
+      "missingTexts": []
+    },
+    "agents-of-the-imperium": {
+      "notes": [],
+      "skipped": [],
+      "missingTexts": []
+    },
+    "astra-militarum": {
+      "notes": [],
+      "skipped": [],
+      "missingTexts": []
+    },
+    "black-templars": {
+      "notes": [],
+      "skipped": [],
+      "missingTexts": []
+    },
+    "blood-angels": {
+      "notes": [],
+      "skipped": [],
+      "missingTexts": []
+    },
+    "chaos-daemons": {
+      "notes": [],
+      "skipped": [],
+      "missingTexts": []
+    },
+    "chaos-knights": {
+      "notes": [],
+      "skipped": [],
+      "missingTexts": []
+    },
+    "chaos-space-marines": {
+      "notes": [],
+      "skipped": [],
+      "missingTexts": []
+    },
+    "dark-angels": {
+      "notes": [],
+      "skipped": [],
+      "missingTexts": []
+    },
+    "death-guard": {
+      "notes": [],
+      "skipped": [],
+      "missingTexts": []
+    },
+    "deathwatch": {
+      "notes": [],
+      "skipped": [],
+      "missingTexts": []
+    },
+    "drukhari": {
+      "notes": [],
+      "skipped": [],
+      "missingTexts": []
+    },
+    "emperors-children": {
+      "notes": [],
+      "skipped": [],
+      "missingTexts": []
+    },
+    "genestealer-cults": {
+      "notes": [],
+      "skipped": [],
+      "missingTexts": []
+    },
+    "grey-knights": {
+      "notes": [],
+      "skipped": [],
+      "missingTexts": []
+    },
+    "imperial-fists": {
+      "notes": [],
+      "skipped": [],
+      "missingTexts": []
+    },
+    "imperial-knights": {
+      "notes": [],
+      "skipped": [],
+      "missingTexts": []
+    },
+    "iron-hands": {
+      "notes": [],
+      "skipped": [],
+      "missingTexts": []
+    },
+    "leagues-of-votann": {
+      "notes": [],
+      "skipped": [],
+      "missingTexts": []
+    },
+    "necrons": {
+      "notes": [],
+      "skipped": [],
+      "missingTexts": []
+    },
+    "orks": {
+      "notes": [],
+      "skipped": [],
+      "missingTexts": []
+    },
+    "raven-guard": {
+      "notes": [],
+      "skipped": [],
+      "missingTexts": []
+    },
+    "salamanders": {
+      "notes": [],
+      "skipped": [],
+      "missingTexts": []
+    },
+    "space-wolves": {
+      "notes": [],
+      "skipped": [],
+      "missingTexts": []
+    },
+    "tau-empire": {
+      "notes": [],
+      "skipped": [],
+      "missingTexts": []
+    },
+    "thousand-sons": {
+      "notes": [],
+      "skipped": [],
+      "missingTexts": []
+    },
+    "tyranids": {
+      "notes": [],
+      "skipped": [],
+      "missingTexts": []
+    },
+    "ultramarines": {
+      "notes": [],
+      "skipped": [],
+      "missingTexts": []
+    },
+    "white-scars": {
+      "notes": [],
+      "skipped": [],
+      "missingTexts": []
+    },
+    "world-eaters": {
+      "notes": [],
+      "skipped": [],
+      "missingTexts": []
+    }
+  }
+}

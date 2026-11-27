@@ -1,0 +1,9 @@
+<job>
+  <script language="JScript" src="data/index.js"/>
+  <script language="JScript" src="core.js"/>
+  <script language="JScript" src="core-official.js"/>
+  <script language="JScript" src="rules.js"/>
+  <script language="JScript" src="play.js"/>
+  <script language="JScript" src="app.js"/>
+  <script language="JScript" src="rules.test.js"/>
+</job>

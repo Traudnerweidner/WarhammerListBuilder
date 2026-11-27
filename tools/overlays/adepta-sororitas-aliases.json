@@ -1,0 +1,22 @@
+{
+  "immolator": {
+    "Purge and Cleanse": ["Fire Support"]
+  },
+  "ministorum-priest": {
+    "Righteous Smiting": ["War Hymns"]
+  },
+  "sisters-novitiate-squad": {
+    "Impetuous Fervour": ["Novitiate Militants"]
+  },
+  "triumph-of-saint-katherine": {
+    "Relics of the Matriarchs": [
+      "Relics of the Matriarchs",
+      "Fiery Heart (Aura)",
+      "Censer of the Sacred Rose (Aura)",
+      "Ebon Chalice (Aura)",
+      "Argent Shroud (Aura)",
+      "Valorous Heart (Aura)",
+      "Bloody Rose (Aura)"
+    ]
+  }
+}

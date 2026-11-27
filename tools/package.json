@@ -1,0 +1,17 @@
+{
+  "name": "armeewerkstatt-data-tools",
+  "private": true,
+  "type": "module",
+  "description": "Generates the static faction data files of the list builder from @alpaca-software/40kdc-data and verifies them against the library.",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build-data": "node build-data.mjs",
+    "verify-data": "node verify-data.mjs",
+    "ui-test": "node ui-test.mjs"
+  },
+  "devDependencies": {
+    "@alpaca-software/40kdc-data": "1.5.3"
+  }
+}

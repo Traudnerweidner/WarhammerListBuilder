@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>Armeewerkstatt</title>
+  <script>try { document.documentElement.setAttribute('data-theme', localStorage.getItem('armeewerkstatt-theme') || localStorage.getItem('sororitas-theme') || 'argent-shroud'); } catch (error) { document.documentElement.setAttribute('data-theme', 'argent-shroud'); }</script>
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="data/index.js"></script>
+  <script defer src="core.js"></script>
+  <script defer src="core-official.js"></script>
+  <script defer src="rules.js"></script>
+  <script defer src="play.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#list-settings">Zur Armeeliste</a>
+  <header class="masthead">
+    <a class="brand" href="#top" aria-label="Armeewerkstatt">40K <span>Armeewerkstatt</span></a>
+    <nav class="masthead-nav" aria-label="Seitenbereiche">
+      <a href="#list-settings">Armee planen</a>
+      <a href="#game-step">Im Spiel</a>
+      <a href="#references">Regeln & Quellen</a>
+      <label class="theme-control">Farbschema<select id="theme"></select></label>
+    </nav>
+  </header>
+  <main id="top">
+    <div class="hero">
+      <p class="eyebrow" id="faction-eyebrow">ARMEEWERKSTATT</p>
+    </div>
+    <aside class="notice" aria-label="Hinweis zum Prototyp">
+      <strong>Inoffizieller Prototyp:</strong> Daten aus dem Community-Datensatz 40kdc-data, nicht offiziell geprüft. <a href="#ref-sources">Datenstand & Einschränkungen</a>
+    </aside>
+    <div class="workflow-nav" role="tablist" aria-label="Armeeliste in vier Schritten">
+      <button type="button" role="tab" id="tab-list-settings" aria-controls="list-settings" aria-selected="true"><span>1</span> Armee & Spielgröße</button>
+      <button type="button" role="tab" id="tab-detachments-step" aria-controls="detachments-step" aria-selected="false" tabindex="-1"><span>2</span> Detachments <small id="tab-status-detachments" class="tab-status"></small></button>
+      <button type="button" role="tab" id="tab-units-step" aria-controls="units-step" aria-selected="false" tabindex="-1"><span>3</span> Einheiten <small id="tab-status-units" class="tab-status"></small></button>
+      <button type="button" role="tab" id="tab-review-step" aria-controls="review-step" aria-selected="false" tabindex="-1"><span>4</span> Prüfung & Export <small id="tab-status-review" class="tab-status"></small></button>
+      <button type="button" role="tab" id="tab-game-step" aria-controls="game-step" aria-selected="false" tabindex="-1"><span>⚔</span> Im Spiel</button>
+      <button type="button" role="tab" id="tab-references" aria-controls="references" aria-selected="false" tabindex="-1">Regeln & Quellen</button>
+    </div>
+
+    <section class="workflow-step panel" id="list-settings" role="tabpanel" aria-labelledby="tab-list-settings">
+      <div class="step-heading">
+        <span class="step-number" aria-hidden="true">1</span>
+        <div><h2 id="settings-title">Armee & Spielgröße</h2></div>
+      </div>
+      <div class="setup">
+        <label>Fraktion<select id="faction" aria-describedby="faction-help"></select></label>
+        <label>Listenname<input id="list-name" maxlength="100" value="" placeholder="z. B. Silberne Tränen"></label>
+        <label>Spielgröße<select id="battle-size" aria-describedby="battle-help"><option value="incursion">Aufklärungsmission · 1000 Punkte</option><option value="strike-force" selected>Einsatzverband · 2000 Punkte</option><option value="custom">Benutzerdefiniert</option></select></label>
+        <label>Punktebudget<input id="budget" type="number" min="1" max="100000" step="1" value="2000" readonly aria-describedby="battle-help"></label>
+        <div class="save-info"><span id="save-status" role="status">Lokalen Entwurf laden …</span><button id="new-list" class="quiet" type="button">Neue Liste</button></div>
+      </div>
+      <p id="faction-help" class="muted setup-help">Ein Fraktionswechsel leert die Liste. Space-Marine-Orden enthalten die allgemeinen Adeptus-Astartes-Datenblätter.</p>
+      <ul id="storage-notices" class="storage-notices" aria-live="polite" hidden></ul>
+      <ul id="battle-help" class="muted setup-help">
+        <li><strong>Aufklärungsmission:</strong> 2 Detachment-Punkte (DP) oder genau ein Detachment mit 3 DP · 2 Verbesserungen</li>
+        <li><strong>Einsatzverband:</strong> 3 DP · 4 Verbesserungen</li>
+        <li><strong>Benutzerdefiniert:</strong> freies Budget, keine Standardgrenzen</li>
+      </ul>
+      <div class="tab-actions"><button type="button" class="next-tab" data-tab="detachments-step">Weiter: Detachments →</button></div>
+    </section>
+
+    <section class="workflow-step panel" id="detachments-step" role="tabpanel" aria-labelledby="tab-detachments-step" hidden>
+      <div class="step-heading">
+        <span class="step-number" aria-hidden="true">2</span>
+        <div><h2 id="detachments-title">Detachments</h2><p>DP zählen getrennt von Armeepunkten. Verbesserungen werden erst mit gewähltem Detachment verfügbar.</p></div>
+      </div>
+      <div id="detachments" class="detachment-grid"></div>
+      <div class="tab-actions"><button type="button" class="next-tab" data-tab="units-step">Weiter: Einheiten →</button></div>
+    </section>
+
+    <section class="workflow-step" id="units-step" role="tabpanel" aria-labelledby="tab-units-step" hidden>
+      <div class="step-heading">
+        <span class="step-number" aria-hidden="true">3</span>
+        <div><h2 id="units-title">Einheiten</h2><p>Links hinzufügen, in der Mitte auswählen, rechts ausrüsten.</p></div>
+      </div>
+      <div class="workspace">
+        <section class="catalogue panel" aria-labelledby="catalogue-title">
+          <div class="pane-heading section-heading"><h3 id="catalogue-title">Katalog</h3><span id="catalogue-count" class="badge" role="status"></span></div>
+          <div class="catalogue-filters">
+            <label class="search-label">Suchen<input id="search" type="search" placeholder="Name, Schlüsselwort oder Waffe …"></label>
+            <label>Gruppe<select id="role-filter" aria-describedby="role-help"></select></label>
+            <label class="toggle" id="legends-toggle" hidden><input id="legends" type="checkbox"> Legends-Einheiten anzeigen</label>
+          </div>
+          <p id="role-help" class="muted role-hint">Gruppen dienen nur der Übersicht, sie sind keine Regel-Keywords.</p>
+          <div id="catalogue"></div>
+        </section>
+        <section class="selection-panel panel" aria-labelledby="selection-title">
+          <div class="pane-heading section-heading"><h3 id="selection-title">Deine Armeeliste</h3><span id="unit-count" class="badge"></span></div>
+          <div class="configuration-controls">
+            <label class="warlord-control">Kriegsherr<select id="warlord" aria-describedby="warlord-help"></select></label>
+            <p id="warlord-help" class="muted">Genau ein Charakter. Ist ein Supreme Commander in der Armee, muss er Kriegsherr sein.</p>
+          </div>
+          <div id="selection-summary"></div>
+        </section>
+        <section class="panel roster-column" id="configuration-step" aria-labelledby="roster-title">
+          <div class="pane-heading"><h3 id="roster-title" tabindex="-1">Eintragsdetails</h3></div>
+          <div id="roster"></div>
+        </section>
+      </div>
+      <div class="tab-actions"><button type="button" class="next-tab" data-tab="review-step">Weiter: Prüfung & Export →</button></div>
+    </section>
+
+    <section class="workflow-step panel" id="review-step" role="tabpanel" aria-labelledby="tab-review-step" hidden>
+      <div class="step-heading">
+        <span class="step-number" aria-hidden="true">4</span>
+        <div><h2 id="review-title">Prüfung & Export</h2></div>
+      </div>
+      <div class="review-grid">
+        <section class="army-summary" id="army-summary" aria-label="Armeeübersicht">
+          <h3 id="battle-summary"></h3>
+          <div class="points"><div><span class="eyebrow">ARMEEPUNKTE</span><div id="points-total" class="points-number"></div></div><p id="points-note"></p></div>
+          <p id="dp-total"></p>
+          <p id="enhancement-total"></p>
+          <p id="warlord-summary"></p>
+          <h3>Detachments</h3>
+          <ul id="selected-forces"></ul>
+        </section>
+        <section class="checks" aria-labelledby="checks-title"><h3 id="checks-title">Listenprüfung</h3><ul id="validation" aria-live="polite"></ul></section>
+      </div>
+      <div class="review-actions"><button id="export" class="primary" type="button">Liste exportieren</button><button id="print" type="button">Drucken / PDF</button></div>
+      <div class="tab-actions"><button type="button" class="next-tab" data-tab="game-step">Weiter: Im Spiel →</button></div>
+    </section>
+
+    <section class="workflow-step panel" id="game-step" role="tabpanel" aria-labelledby="tab-game-step" hidden>
+      <div class="step-heading">
+        <span class="step-number" aria-hidden="true">⚔</span>
+        <div><h2 id="game-title">Im Spiel</h2><p>Spickzettel je Phase und Datenblätter deiner Einheiten. Regeltexte auf Englisch, soweit hinterlegt.</p></div>
+      </div>
+      <div id="game-summary" class="game-summary"></div>
+      <section class="game-cheatsheet" aria-labelledby="cheatsheet-title">
+        <div class="game-toolbar">
+          <h3 id="cheatsheet-title">Spickzettel</h3>
+          <label class="turn-filter">Zug<select id="turn-filter"><option value="all">Beide Züge</option><option value="own">Mein Zug</option><option value="opponent">Gegnerischer Zug</option></select></label>
+        </div>
+        <div id="phase-nav" class="phase-nav" aria-label="Phasen"></div>
+        <div id="cheatsheet"></div>
+      </section>
+      <section class="game-units-section" aria-labelledby="game-units-title">
+        <div class="game-toolbar">
+          <h3 id="game-units-title">Einheiten</h3>
+          <div class="game-buttons"><button id="game-expand" type="button" class="quiet">Alle aufklappen</button><button id="game-collapse" type="button" class="quiet">Alle zuklappen</button></div>
+        </div>
+        <div id="game-units"></div>
+        <div id="game-terms"></div>
+      </section>
+      <div class="review-actions"><button id="game-export" class="primary" type="button">Liste exportieren</button><button id="game-print" type="button">Drucken / PDF</button></div>
+    </section>
+
+    <section class="workflow-step panel reference" id="references" role="tabpanel" aria-labelledby="tab-references" hidden>
+      <div class="reference-content">
+        <div class="ref-nav" role="tablist" aria-label="Regelbereiche">
+          <button type="button" role="tab" id="ref-tab-faction" aria-controls="ref-faction" aria-selected="true">Fraktion <small>Fraktionsregeln</small></button>
+          <button type="button" role="tab" id="ref-tab-core" aria-controls="ref-core" aria-selected="false" tabindex="-1">Grundregeln <small>alle Fraktionen</small></button>
+          <button type="button" role="tab" id="ref-tab-sources" aria-controls="ref-sources" aria-selected="false" tabindex="-1">Datenstand &amp; Quellen</button>
+        </div>
+        <div class="ref-panel" id="ref-faction" role="tabpanel" aria-labelledby="ref-tab-faction">
+          <p class="muted" id="faction-reference-intro"></p>
+        <section id="faction-rule" aria-labelledby="faction-rule-title">
+          <h2 id="faction-rule-title">Fraktionsregel</h2>
+          <div id="army-rule" class="army-rule" lang="en"></div>
+        </section>
+        <section aria-labelledby="detachment-reference-title">
+          <h3 id="detachment-reference-title">Verbesserungen</h3>
+          <p>Verbesserungen benötigen ein gewähltes Detachment und einen geeigneten Träger; epische Helden sind ausgeschlossen, sofern die Verbesserung nichts anderes erlaubt. Jede Verbesserung zählt einmal gegen das Limit, auch wenn sie als Aufwertung mehrfach genommen wird. Jede Kopie kostet Punkte.</p>
+        </section>
+        <section aria-labelledby="pricing-title">
+          <h2 id="pricing-title">Punkte & Zuordnungen</h2>
+          <p><span id="pricing-count"></span> Datenblätter. Kopie-Nummern zählen Einträge desselben Datenblatts in Listenreihenfolge. Anführer-Zuordnungen („Leader“) sind optional, Support-Zuordnungen verpflichtend.</p>
+          <details><summary>Hinweise zu Anführern und Leibwachen</summary><ul id="attachment-reference"></ul></details>
+          <details><summary>Alle Punkte & Zuordnungen anzeigen</summary><div id="pricing-reference" class="detachment-grid"></div></details>
+        </section>
+        </div>
+        <div class="ref-panel" id="ref-core" role="tabpanel" aria-labelledby="ref-tab-core" hidden>
+          <p class="muted">Regeln, die für alle Fraktionen gleich sind.</p>
+        <section id="official-rules-section" aria-labelledby="official-rules-title">
+          <h2 id="official-rules-title">Core Rules (11. Edition): Kernfähigkeiten, Begriffe & Core-Stratagems</h2>
+          <p class="muted" id="official-rules-source" lang="en"></p>
+          <p class="muted">Markierte Begriffe in Datenblättern, Waffentabellen und im Spickzettel öffnen den passenden Abschnitt.</p>
+          <div id="official-rules"></div>
+        </section>
+        <section id="core-rules-section" aria-labelledby="core-rules-title">
+          <h2 id="core-rules-title">Kurzreferenz Grundregeln (Zusammenfassung)</h2>
+          <p class="muted" id="core-rules-source" lang="en"></p>
+          <p class="muted">Zusammenfassung zum schnellen Nachlesen. Wo sie den Core Rules widerspricht, steht ein Korrekturhinweis.</p>
+          <div id="core-rules"></div>
+        </section>
+        </div>
+        <div class="ref-panel" id="ref-sources" role="tabpanel" aria-labelledby="ref-tab-sources" hidden>
+        <section aria-labelledby="provenance-title">
+          <h2 id="provenance-title">Datenstand & Einschränkungen</h2>
+          <ul>
+            <li><strong>Datensatz:</strong> <span id="dataset-label"></span>. <span id="faction-count"></span> spielbare Fraktionen und Orden. Datenblätter, Punkte, Ausrüstungsoptionen, Zuordnungen, Detachments, Verbesserungen und Stratagems stammen daraus.</li>
+            <li><strong>Diese Fraktion:</strong> <span id="faction-coverage"></span> <span id="text-coverage"></span></li>
+            <li><strong>Regeltexte:</strong> Der Datensatz enthält keine offiziellen Regeltexte. Für Adepta Sororitas werden die englischen Texte der bisherigen Abschrift (Fraktionspaket v1.4) angezeigt, für alle anderen Fraktionen nur die Namen.</li>
+            <li><strong>Nicht enthalten:</strong> Legends-Datenblätter, Verbündete (Allies) und Einheiten, die nur über Verbündeten-Regeln wählbar sind. Adeptus Titanicus und Titanicus Traitoris sind nur als Verbündete vorgesehen und fehlen deshalb.</li>
+            <li><strong>Ausrüstung:</strong> Jedes Modell wird einzeln ausgerüstet und gegen die Ausrüstungsregeln des Datensatzes geprüft.</li>
+            <li>Die Listenprüfung bestätigt keine Turnierlegalität.</li>
+            <li><strong>Lizenz:</strong> Powered by <a href="https://40kdc.alpacasoft.dev" rel="noopener">40kdc-data</a> – Daten von Alpaca Software und den 40kdc community contributors (CC BY 4.0, <a href="https://github.com/wn-mitch/40kdc-data" rel="noopener">Quelle</a>).</li>
+          </ul>
+        </section>
+        </div>
+      </div>
+    </section>
+    <footer>Inoffizieller Fan-Prototyp. Läuft lokal ohne Konto und Netzwerk; die Liste bleibt in diesem Browser. Exportiere sie zur Sicherung. Powered by <a href="https://40kdc.alpacasoft.dev" rel="noopener">40kdc-data</a>.</footer>
+  </main>
+  <dialog id="rule-dialog" class="rule-dialog" aria-labelledby="rule-dialog-title">
+    <div class="rule-dialog-head">
+      <h3 id="rule-dialog-title" lang="en"></h3>
+      <button id="rule-dialog-close" type="button" class="quiet" aria-label="Schließen">✕</button>
+    </div>
+    <div id="rule-dialog-body"></div>
+    <p id="rule-dialog-source" class="muted rule-dialog-source" lang="en"></p>
+  </dialog>
+</body>
+</html>
