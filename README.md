@@ -16,4 +16,4 @@ functions like any other list builder out there
 
 ## License
 
-None lol
+Using https://github.com/wn-mitch/40kdc-data
